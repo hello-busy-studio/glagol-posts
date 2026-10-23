@@ -732,3 +732,8 @@ b, strong { font-weight: 600; }
 /* обложка-событие: подпись продукта отделена от названия (+6 px; в горизонтали +4 на холсте = +6 в 1920) */
 .stk.prod small { margin-top: calc(.2em + 6px); }
 .fmt-h .stk.prod small { margin-top: calc(.2em + 4px); }
+
+/* маркировка рекламы: читаемый размер — 18 px на 1080 (вертикаль), 24 px в 1920 (горизонталь, 16 на холсте);
+   строка не обрезается многоточием, ширина — между полями */
+.marking { font-size: 18px; opacity: .7; max-width: calc(var(--W) - 2 * var(--pad)); text-overflow: clip; }
+.fmt-h .marking { font-size: 16px; }
