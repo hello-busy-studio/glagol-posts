@@ -344,7 +344,9 @@ async function main() {
     await Promise.all(fmts.map(async (fmt) => {
       const F = FORMATS[fmt];
       const slides = post.слайды.filter((s) => !s.только || (s.только.startsWith("г") ? "h" : "v") === fmt);
-      const outDir = path.join(dir, F.dir);
+      // нестандартный размер (ресайз) кладем в свою папку, чтобы ресайзы не затирали друг друга: горизонтальные-1248x608
+      const custom = sizes[fmt] && sizes[fmt].join("x") !== F.size.join("x");
+      const outDir = path.join(dir, custom ? `${F.dir}-${sizes[fmt].join("x")}` : F.dir);
       fs.mkdirSync(outDir, { recursive: true });
       if (!args.slide) for (const f of fs.readdirSync(outDir)) if (/^\d+\.(png|jpg)$/.test(f)) fs.rmSync(path.join(outDir, f));
       const C = canvasFor(fmt, sizes[fmt]);
